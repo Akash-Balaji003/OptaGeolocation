@@ -40,7 +40,7 @@ def create_access_token(data: dict, expires_delta: timedelta | None = None):
     encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
     return encoded_jwt
 
-# Updated login_user function with JWT-based authentication
+# Login function with JWT-based authentication
 def login_user(user_data: dict):
     connection = get_db_connection()
     cursor = connection.cursor()  # Fetch results as dictionary
@@ -88,6 +88,7 @@ def login_user(user_data: dict):
         cursor.close()
         connection.close()
 
+# Registeration function
 def register_user(user_data: dict):
     connection = get_db_connection()
     cursor = connection.cursor()
@@ -112,6 +113,7 @@ def register_user(user_data: dict):
         cursor.close()
         connection.close()
 
+# Adding address for the users
 def add_address(address_data: dict):
     connection = get_db_connection()
     cursor = connection.cursor()
@@ -133,6 +135,7 @@ def add_address(address_data: dict):
         cursor.close()
         connection.close()
 
+# Function to get list of all addressess for a user
 def get_user_addresses(user_id: int) -> List[Dict]:
     conn = pymysql.connect(
         host="localhost",

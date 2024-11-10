@@ -1,5 +1,4 @@
 from fastapi import FastAPI, HTTPException, Query, Request
-import json
 from pydantic import BaseModel
 
 from DB_Interface import add_address, get_user_addresses, login_user, register_user

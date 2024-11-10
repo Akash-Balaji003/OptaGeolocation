@@ -40,29 +40,29 @@ const Register = ({ navigation }: AccProps) => {
         // Clear error message if validations pass
         setErrorMessage("");
         const addressData = {
-          user_name: user_name,
-          phone_number: phone_number,
-          password: password,
+            user_name: user_name,
+            phone_number: phone_number,
+            password: password,
         };
         try {
-          const response = await fetch('https://hchjn6x7-8000.inc1.devtunnels.ms/register', {
-              method: 'POST',
-              headers: {
-                  'Content-Type': 'application/json',
-              },
-              body: JSON.stringify(addressData),
-          });
-          const result = await response.json();
-          if (response.ok) {
-              console.log(result.message);
-              Alert.alert("Account has been created successfully")
-              navigation.navigate("login")
-          } else {
-              console.error(result.detail);
-          }
-      } catch (error) {
-          console.error('Error sending address:', error);
-      }
+            const response = await fetch('https://hchjn6x7-8000.inc1.devtunnels.ms/register', {
+                    method: 'POST',
+                    headers: {
+                            'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(addressData),
+            });
+            const result = await response.json();
+            if (response.ok) {
+                console.log(result.message);
+                Alert.alert("Account has been created successfully")
+                navigation.navigate("login")
+            } else {
+                console.error(result.detail);
+            }
+        } catch (error) {
+            console.error('Error sending address:', error);
+        }
 
     };
     

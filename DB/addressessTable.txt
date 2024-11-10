@@ -1,0 +1,7 @@
+CREATE TABLE addresses (
+    address_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT,
+    address VARCHAR(255),
+    tag VARCHAR(20),
+    FOREIGN KEY (user_id) REFERENCES users(user_id)
+);
