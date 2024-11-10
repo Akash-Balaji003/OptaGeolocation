@@ -223,7 +223,7 @@ const MapScreen = ({ navigation }: MapScreenProps) => {
                 <Text style={[styles.subLocationText, { marginLeft: 3 }]}>{subLocation}</Text>
 
                 {isExtended && (
-                    <ScrollView style={{ marginTop: 25 }}>
+                    <ScrollView style={{ marginTop: 20 }}>
                         <View style={styles.inputContainer}>
                             <Text style={styles.label}>HOUSE / FLAT / BLOCK NO.</Text>
                             <TextInput
@@ -296,7 +296,7 @@ const styles = StyleSheet.create({
         position: 'absolute',
         bottom: 0,
         width: '100%',
-        height: '15%',
+        height: '18%',
         borderTopLeftRadius: 30,
         borderTopRightRadius: 30,
         backgroundColor: 'white',
@@ -305,7 +305,7 @@ const styles = StyleSheet.create({
         borderTopColor: '#ddd',
     },
     extendedBottomView: {
-        height: '60%',
+        height: '65%',
     },
     addressText: {
         fontSize: 16,

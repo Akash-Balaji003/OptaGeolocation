@@ -91,7 +91,7 @@ const LoginScreen = ({ navigation }: LoginProps) => {
 
       <View style={styles.signUpContainer}>
         <Text style={styles.newHere}>If you’re new here, please </Text>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate("register")}>
           <Text style={styles.signUp}>sign up</Text>
         </TouchableOpacity>
       </View>

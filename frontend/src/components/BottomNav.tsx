@@ -26,16 +26,6 @@ const BottomNav = ({navigation}:BottomNavProps) => {
             </TouchableOpacity>
 
             <TouchableOpacity style={styles.NavButton}>
-                <Feather name="users" size={28} color="#444242" />
-                <Text style={styles.ButtonText}>Friends</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity style={styles.NavButton}>
-                <AntDesign name="qrcode" size={28} color="#444242" />
-                <Text style={styles.ButtonText}>Scan</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity style={styles.NavButton}>
                 <Ionicons name="chatbox-ellipses-outline" size={28} color="#444242" />
                 <Text style={styles.ButtonText}>Chat</Text>
             </TouchableOpacity>

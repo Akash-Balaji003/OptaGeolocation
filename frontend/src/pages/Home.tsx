@@ -1,6 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import {
     Image,
+    Modal,
     PermissionsAndroid,
     Platform,
     SafeAreaView,
@@ -19,16 +20,21 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import BottomNav from '../components/BottomNav';
 import { useAuth } from '../components/AuthContext';
 
-type HomeProps = NativeStackScreenProps<RootStackParamList, 'home'> 
+type HomeProps = NativeStackScreenProps<RootStackParamList, 'home'>;
 
 const Home = ({navigation}:HomeProps) => {
-
     const { access_token, user_name } = useAuth();
     const { height } = useWindowDimensions();
+    const [locationModalVisible, setLocationModalVisible] = useState(false);
 
     if (!access_token) return <Text>Loading...</Text>;
 
-    const handleLocationPress = useCallback(async () => {
+    const handleLocationPress = () => {
+        setLocationModalVisible(true); // Show the modal
+    };
+
+    const handleEnableLocation = useCallback(async () => {
+        setLocationModalVisible(false); // Hide the modal
         if (Platform.OS === 'android') {
             const granted = await PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION);
             if (granted) {
@@ -43,6 +49,11 @@ const Home = ({navigation}:HomeProps) => {
             navigation.navigate('maps');
         }
     }, [navigation]);
+
+    const handleEnterManually = () => {
+        setLocationModalVisible(false); // Hide the modal
+        navigation.navigate('maps'); // Go to maps without requesting permissions
+    };
 
     return (
         <SafeAreaView style={[styles.container, { height }]}>
@@ -148,6 +159,29 @@ const Home = ({navigation}:HomeProps) => {
 
             {/* Bottom Navigation */}
             <BottomNav navigation={navigation} />
+
+            {/* Location Modal */}
+            <Modal
+                animationType="slide"
+                transparent={true}
+                visible={locationModalVisible}
+                onRequestClose={() => setLocationModalVisible(false)}
+            >
+                <View style={styles.modalOverlay}>
+                    <View style={styles.modalContainer}>
+                        <Text style={styles.modalTitle}>Select Location Option</Text>
+                        <Text style={styles.modalText}>Would you like to enter your location manually or enable location services?</Text>
+                        <View style={styles.modalButtonContainer}>
+                            <TouchableOpacity style={styles.modalButton} onPress={handleEnterManually}>
+                                <Text style={styles.modalButtonText}>Enter Manually</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity style={styles.modalButton} onPress={handleEnableLocation}>
+                                <Text style={styles.modalButtonText}>Enable Location</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                </View>
+            </Modal>
         </SafeAreaView>
     );
 }
@@ -260,7 +294,48 @@ const styles = StyleSheet.create({
         width: 140,
         height: 80,
     },
+    modalOverlay: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    },
+    modalContainer: {
+        width: '80%',
+        backgroundColor: 'white',
+        borderRadius: 10,
+        padding: 20,
+        alignItems: 'center',
+    },
+    modalTitle: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        color: '#0077B6',
+        marginBottom: 10,
+    },
+    modalText: {
+        fontSize: 14,
+        color: '#444242',
+        textAlign: 'center',
+        marginBottom: 20,
+    },
+    modalButtonContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        width: '100%',
+    },
+    modalButton: {
+        backgroundColor: '#0077B6',
+        borderRadius: 10,
+        padding: 10,
+        paddingHorizontal: 20,
+        width:'49%'
+    },
+    modalButtonText: {
+        color: 'white',
+        fontSize:13,
+        fontWeight: 'bold',
+    },
 });
-
 
 export default Home;
