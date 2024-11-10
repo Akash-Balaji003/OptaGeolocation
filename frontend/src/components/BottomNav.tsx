@@ -20,7 +20,7 @@ const BottomNav = ({navigation}:BottomNavProps) => {
 
     return (
         <View style={styles.BottomNav}>
-            <TouchableOpacity style={styles.NavButton} onPress={() => navigation.navigate("Home")}>
+            <TouchableOpacity style={styles.NavButton} onPress={() => navigation.navigate("home")}>
                 <Feather name="home" size={28} color="#444242" />
                 <Text style={styles.ButtonText}>Home</Text>
             </TouchableOpacity>

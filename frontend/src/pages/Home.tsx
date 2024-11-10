@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import {
     Image,
+    PermissionsAndroid,
+    Platform,
     SafeAreaView,
     StyleSheet,
     Text,
@@ -25,6 +27,22 @@ const Home = ({navigation}:HomeProps) => {
     const { height } = useWindowDimensions();
 
     if (!access_token) return <Text>Loading...</Text>;
+
+    const handleLocationPress = useCallback(async () => {
+        if (Platform.OS === 'android') {
+            const granted = await PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION);
+            if (granted) {
+                navigation.navigate('maps');
+            } else {
+                const result = await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION);
+                if (result === PermissionsAndroid.RESULTS.GRANTED) {
+                    navigation.navigate('maps');
+                }
+            }
+        } else {
+            navigation.navigate('maps');
+        }
+    }, [navigation]);
 
     return (
         <SafeAreaView style={[styles.container, { height }]}>
@@ -56,7 +74,7 @@ const Home = ({navigation}:HomeProps) => {
 
                 <View style={styles.CardsHolder}>
 
-                    <TouchableOpacity style={styles.Card}>
+                    <TouchableOpacity style={styles.Card} onPress={handleLocationPress}>
                         <View style={styles.CardTextHolder}>
                             <Text style={[styles.CardText, {fontSize: 14, fontWeight: 'bold'}]}>
                                 <Text style={{color: "#0077B6"}}>SELECT</Text> YOUR LOCATION
