@@ -21,7 +21,7 @@ const LoginScreen = ({ navigation }: LoginProps) => {
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
-  const { setToken } = useAuth();
+  const { setToken, setUserName, setUserID } = useAuth();
 
   const handleLogin = async () => {
     try {
@@ -41,6 +41,8 @@ const LoginScreen = ({ navigation }: LoginProps) => {
       if (response.ok) {
         // Store the token in global state
         setToken(data.access_token);
+		setUserName(data.Name);
+		setUserID(data.user_id);
         // Navigate to the register screen
         navigation.navigate('home');
       } else {

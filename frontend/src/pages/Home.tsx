@@ -23,7 +23,7 @@ type HomeProps = NativeStackScreenProps<RootStackParamList, 'home'>
 
 const Home = ({navigation}:HomeProps) => {
 
-    const { access_token } = useAuth();
+    const { access_token, user_name } = useAuth();
     const { height } = useWindowDimensions();
 
     if (!access_token) return <Text>Loading...</Text>;
@@ -50,6 +50,7 @@ const Home = ({navigation}:HomeProps) => {
             <View style={styles.TopBarNav}>
                 <View>
                     <Text style={styles.WelcomeText}>Welcome</Text>
+                    <Text style={[styles.WelcomeText, { fontWeight: 'bold', fontSize: 22, color: '#0077B6' }]}>{user_name}</Text>
                 </View>
                 <TouchableOpacity>
                     <FontAwesome name="bell-o" size={26} color="black" />
@@ -79,7 +80,7 @@ const Home = ({navigation}:HomeProps) => {
                             <Text style={[styles.CardText, {fontSize: 14, fontWeight: 'bold'}]}>
                                 <Text style={{color: "#0077B6"}}>SELECT</Text> YOUR LOCATION
                             </Text>
-                            <Text style={[styles.CardText, {paddingTop:3}]}>CHANGE AND CUSTOMISE THE CARD TO YOUR PREFERENCE</Text>
+                            <Text style={[styles.CardText, {paddingTop:3}]}>CHOOSE YOUR LOCATION FOR TAILORED EXPERIENCES</Text>
                         </View>
                         <View style={styles.CardImage}>
                             <Image 
@@ -90,12 +91,12 @@ const Home = ({navigation}:HomeProps) => {
                         </View>
                     </TouchableOpacity>
 
-                    <TouchableOpacity style={styles.Card}>
+                    <TouchableOpacity style={styles.Card} onPress={() => navigation.navigate("locations")}>
                         <View style={styles.CardTextHolder}>
                             <Text style={[styles.CardText, {fontSize: 14, fontWeight: 'bold'}]}>
-                                <Text style={{color: "#0077B6"}}>YET</Text> TO COME
+                                <Text style={{color: "#0077B6"}}>VIEW</Text> YOUR DELIVERY LOCATIONS
                             </Text>
-                            <Text style={[styles.CardText, {paddingTop:3}]}>DISTRIBUTE YOUR CARD WITH OTHERS AND EXPAND YOUR NETWORK</Text>
+                            <Text style={[styles.CardText, {paddingTop:3}]}>ACCESS YOUR SAVED LOCATIONS ANYTIME, ANYWHERE</Text>
                         </View>
                         <View style={styles.CardImage}>
                             <Image 
@@ -115,7 +116,7 @@ const Home = ({navigation}:HomeProps) => {
                             <Text style={[styles.CardText, {fontSize: 14, fontWeight: 'bold'}]}>
                                 <Text style={{color: "#0077B6"}}>YET</Text> TO COME
                             </Text>
-                            <Text style={[styles.CardText, {paddingTop:3}]}>CHECK AND REVIEW YOUR CARD DETAILS AT A GLANCE</Text>
+                            <Text style={[styles.CardText, {paddingTop:3}]}>STAY TUNED FOR FURTHER UPDATES</Text>
                         </View>
                         <View style={styles.CardImage}>
                             <Image 
@@ -131,7 +132,7 @@ const Home = ({navigation}:HomeProps) => {
                             <Text style={[styles.CardText, {fontSize: 14, fontWeight: 'bold'}]}>
                                 <Text style={{color: "#0077B6"}}>YET</Text> TO COME
                             </Text>
-                            <Text style={[styles.CardText, {paddingTop:3}]}>BUILD NEW CONNECTIONS AND EXPLORE OPPORTUNITIES</Text>
+                            <Text style={[styles.CardText, {paddingTop:3}]}>STAY TUNED FOR FURTHER UPDATES</Text>
                         </View>
                         <View style={styles.CardImage}>
                             <Image 

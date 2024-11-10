@@ -17,6 +17,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import { AuthProvider } from './components/AuthContext';
 import Home from './pages/Home';
 import Maps from './pages/Maps';
+import Locations from './pages/Locations';
+
 
 enableScreens(); 
 
@@ -25,6 +27,7 @@ export type RootStackParamList = {
     register: undefined;
 	home: undefined;
 	maps: undefined;
+	locations: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -39,6 +42,7 @@ function App(): React.JSX.Element {
 					<Stack.Screen name='register' component={Register} options={{ headerShown: false }} />
 					<Stack.Screen name='home' component={Home} options={{ headerShown: false }} />
 					<Stack.Screen name='maps' component={Maps} options={{ headerShown: false }} />
+					<Stack.Screen name='locations' component={Locations} options={{ headerShown: false }} />
 				</Stack.Navigator>
 			</NavigationContainer>
 		</AuthProvider>

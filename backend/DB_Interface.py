@@ -1,4 +1,5 @@
 from datetime import datetime, timedelta
+from typing import Dict, List
 from jose import jwt, JWTError
 from fastapi import HTTPException, Depends
 from passlib.context import CryptContext
@@ -110,3 +111,41 @@ def register_user(user_data: dict):
     finally:
         cursor.close()
         connection.close()
+
+def add_address(address_data: dict):
+    connection = get_db_connection()
+    cursor = connection.cursor()
+
+    try:
+        # Insert into Addresses table
+        query_address = """INSERT INTO addresses (user_id, address, tag) 
+                           VALUES (%s, %s, %s)"""
+        cursor.execute(query_address, (address_data['user_id'], address_data['address'], address_data['tag']))
+        
+        connection.commit()
+    
+    except pymysql.connect.Error as err:
+        connection.rollback()
+        print("Database error:", err)  # Debugging
+        raise HTTPException(status_code=400, detail=f"Database error: {err}")
+    
+    finally:
+        cursor.close()
+        connection.close()
+
+def get_user_addresses(user_id: int) -> List[Dict]:
+    conn = pymysql.connect(
+        host="localhost",
+        user="root",
+        password="Akash003!",
+        database="opta",
+        cursorclass=DictCursor
+    )
+    try:
+        with conn.cursor() as cursor:
+            query = "SELECT address, tag FROM addresses WHERE user_id = %s"
+            cursor.execute(query, (user_id,))
+            addresses = cursor.fetchall()
+        return addresses
+    finally:
+        conn.close()
