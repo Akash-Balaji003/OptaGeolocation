@@ -42,7 +42,7 @@ const LoginScreen = ({ navigation }: LoginProps) => {
         // Store the token in global state
         setToken(data.access_token);
         // Navigate to the register screen
-        navigation.navigate('register');
+        navigation.navigate('home');
       } else {
         setErrorMessage(data.detail || 'Invalid mobile number or password');
       }

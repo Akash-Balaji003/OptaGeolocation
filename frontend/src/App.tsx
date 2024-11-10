@@ -15,12 +15,14 @@ import Register from './pages/Register';
 import { enableScreens } from 'react-native-screens';
 import { NavigationContainer } from '@react-navigation/native';
 import { AuthProvider } from './components/AuthContext';
+import Home from './pages/Home';
 
 enableScreens(); 
 
 export type RootStackParamList = {
     login: undefined;
     register: undefined;
+	home: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -33,6 +35,7 @@ function App(): React.JSX.Element {
 				<Stack.Navigator initialRouteName='login'>
 					<Stack.Screen name='login' component={Login} options={{ headerShown: false }} />
 					<Stack.Screen name='register' component={Register} options={{ headerShown: false }} />
+					<Stack.Screen name='home' component={Home} options={{ headerShown: false }} />
 				</Stack.Navigator>
 			</NavigationContainer>
 		</AuthProvider>
